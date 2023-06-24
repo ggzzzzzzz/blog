@@ -10,7 +10,8 @@ images: []
 # NetApp ONTAP config backup upload to a https endpoint
 ## Environment
 RockyLinux 8.7
-Nginx 1.20.1
+
+Nginx 1.20.1 (nginx-upload-module is not required)
 
 
 cat /etc/nginx/nginx.conf
@@ -124,3 +125,10 @@ crontab -l
 # at 01:25 remove the weekly files older than 10 days
 25 1 * * * root  /usr/bin/find /usr/share/nginx/html/upload -mtime +10 -name "*.weekly.*" -print -delete
 ```
+
+ssh admin@n99991001.example.com
+```bash
+::*> system configuration backup show
+::*> system configuration backup upload -node n99991001-01 -backup n99991001.8hour.2023-06-12.02_15_03.6z -destination https://httpserver.example.com/upload
+```
+
