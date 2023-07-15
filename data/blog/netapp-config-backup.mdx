@@ -109,7 +109,7 @@ http {
 
 cat /usr/share/nginx/restore_name.sh
 ```bash
-cd /usr/share/nginx/html/upload; ls |grep "^[0-9]\{10\}$"|while read name; do original=`7za l $name|grep "\.pkg"|head -n 1|awk -F '.pkg.' '{print $2}'|awk -F '-01' '{print $1$2}'`; echo mv $name $original; done |sh
+cd /usr/share/nginx/html/upload; ls |grep "^[0-9]\{10\}$"|while read name; do original=`7za l $name|grep "\.pkg"|head -n 1|awk -F '/.pkg.' '{print $2}'| awk '{ print substr($1,1,9)substr($1,12,length($1)-11)}' `; echo mv $name $original; done |sh
 ```
 
 crontab -l
